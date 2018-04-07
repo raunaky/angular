@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="githubViewer">
+<head>
+	<title>Github Viewer</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+</head>
+<body ng-controller="MainController">
+	<h3>{{message}}</h3>
+	<div>
+		<form ng-submit="search(username)">
+			<input type="text" name="username" placeholder="Enter the user" ng-model="username">
+			<input type="submit" name="search" value="Search">
+		</form>
+		order by:
+		<select ng-model="repoSortOrder" id="sortOrder" name="sortOrder">
+			<option value="+name">Name</option>
+			<option value="-stargazers_count">Stars</option>
+			<option value="-forks_count">Forks</option>
+		</select>
+	</div>
+	<table ng-controller="MainController">
+		<thead>
+			<th>Name</th>
+			<th>Stars </th>
+			<th>Fork count</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat = "user in users | orderBy:repoSortOrder">
+				<img src="http://www.gravatar.com/avatar/{{user.avatar_url}}" alt="{{user.bio}}">
+				<td>{{user.name}}</td>
+				<td>{{user.stargazers_count}}</td>
+				<td>{{user.forks_count}}</td>
+
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
